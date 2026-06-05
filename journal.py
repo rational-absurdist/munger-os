@@ -1,4 +1,4 @@
-"""journal.py — CSV persistence layer for Munger OS."""
+"""journal.py — CSV persistence layer for Munger OS v2."""
 
 from __future__ import annotations
 
@@ -51,9 +51,11 @@ def load_decisions() -> pd.DataFrame:
     return load_csv(
         DECISIONS_FILE,
         [
-            "date", "decision", "domain", "primary_model", "expected_outcome", "risks",
-            "opportunity_cost", "incentives", "disconfirming_evidence", "confidence",
-            "downside", "score", "grade", "revisit_date", "timestamp",
+            "date", "decision", "domain", "primary_model",
+            "inversion_response", "expected_outcome", "risks",
+            "opportunity_cost", "incentives", "disconfirming_evidence",
+            "confidence", "downside", "reversibility", "magnitude",
+            "fat_pitch_confirmed", "score", "grade", "revisit_date", "timestamp",
         ],
     )
 
@@ -64,4 +66,11 @@ def save_review(row: Dict[str, object]) -> None:
 
 
 def load_reviews() -> pd.DataFrame:
-    return load_csv(REVIEWS_FILE, ["date", "decision", "actual_outcome", "lesson", "timestamp"])
+    return load_csv(
+        REVIEWS_FILE,
+        [
+            "date", "decision_ref", "original_decision", "predicted_outcome",
+            "actual_outcome", "prediction_accuracy", "process_score",
+            "grade_accuracy", "lesson", "timestamp",
+        ],
+    )
